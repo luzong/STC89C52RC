@@ -1,0 +1,50 @@
+C51 COMPILER V9.60.0.0   IRRECEIVE                                                         08/15/2021 00:43:55 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE IRRECEIVE
+OBJECT MODULE PLACED IN .\Objects\IrReceive.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE IrReceive.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\IrReceive.lst) TABS(2) OBJECT(.\Objects\IrReceive.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "IrReceive.h"
+   3          
+   4           void delay(unsigned int k) 
+   5          {           
+   6   1        unsigned int i,j;       
+   7   1        for(i=0;i<k;i++)
+   8   1        {     
+   9   2          for(j=0;j<121;j++);
+  10   2        }           
+  11   1      }
+  12          //函数名称 : IR_Init() 初始化外部中断1
+  13          void IR_Init()
+  14          {
+  15   1        IT1=0;   //上升沿触发
+  16   1        EX1=1;   //打开中断0允许
+  17   1        EA=1;  //打开总中断
+  18   1        IRIN=1;  //初始化端口
+  19   1      }
+  20          
+  21          //函数名称 : ReadIr()  外部中断1中断函数
+  22          void ReadIr() interrupt 2
+  23          {
+  24   1        P1_2=!P1_2;   //继电器电灯开关取反
+  25   1        delay(200);   //延时滤波去抖
+  26   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     86    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
